@@ -8,11 +8,12 @@ Vyzkoušej [APP](https://ballaylukas.github.io/App-Bankist/)!
 
 ### Login údaje účtů
 
-| Syntax | Description |
+| User | Password |
 | ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
-
+| js | 1111 |
+| jd | 2222 |
+| stw | 3333 |
+| ss | 4444 |
 
 user1: js     
 password: 1111
