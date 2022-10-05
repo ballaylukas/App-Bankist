@@ -16,8 +16,16 @@ Vyzkoušej [APP](https://ballaylukas.github.io/App-Bankist/)!
 | ss | 4444 |
 
 ### Funkce aplikace
-* náhodně generovaný hod kostkou 1-6 (5-6 = aktualizace skóre, 1 = vynulování skóre, pokračuje druhý hráč)
-* automatické přepínání mezi aktivním hráčem
-* možnost uložit aktuální skóre do celkového skóre
-* vyhrává hráč s dosažením celkového skóre 100
-* 
+* přihlášení do aplikace (4 vytvořené účty)
+* generování přihlašovacího jména na základě iniciál
+* zobrazení pohybů na účtu
+* třídění pohybů na účtu
+* celkový stav, přehled výdajů a příjmů
+* převod peněz mezi účty
+* žádost o půjčku na základě definované podmínky
+* zrušení účtu
+
+### Bude doplněno
+* aktuální datum a čas
+* zaznamenání data jednotlivých pohybů na účtu
+* časový interval automatického odhlášení
