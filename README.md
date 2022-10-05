@@ -17,4 +17,4 @@ user4: ss     password: 4444
 * automatické přepínání mezi aktivním hráčem
 * možnost uložit aktuální skóre do celkového skóre
 * vyhrává hráč s dosažením celkového skóre 100
-* restartování hry
+* 
