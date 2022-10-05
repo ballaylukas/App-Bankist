@@ -4,7 +4,7 @@ Vypracováno v rámci kurzu Udemy [JavaScript 2022](https://www.udemy.com/share/
 
 Minimalistická webová aplikace online bankovnictví "Bankist", vybudovaná na základech práce s datovými strukturami (arrays, objects), DOM manipulací a eventy.
 
-Vyzkoušej [HRU](https://ballaylukas.github.io/Game-Pig/)!
+Vyzkoušej [APP](https://ballaylukas.github.io/Game-Pig/)!
 
 ### Funkce aplikace
 * náhodně generovaný hod kostkou 1-6 (5-6 = aktualizace skóre, 1 = vynulování skóre, pokračuje druhý hráč)
