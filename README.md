@@ -6,7 +6,7 @@ Minimalistická webová aplikace online bankovnictví "Bankist", vybudovaná na 
 
 Vyzkoušejte [APP](https://ballaylukas.github.io/App-Bankist/)!
 
-### Login údaje účtů
+### Login údaje
 
 | User | Password |
 | ----------- | ----------- |
