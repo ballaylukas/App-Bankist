@@ -4,7 +4,7 @@ Vypracováno v rámci kurzu Udemy [JavaScript 2022](https://www.udemy.com/share/
 
 Minimalistická webová aplikace online bankovnictví "Bankist", vybudovaná na základech práce s datovými strukturami (arrays, objects), DOM manipulací a eventy.
 
-Vyzkoušej [APP](https://ballaylukas.github.io/App-Bankist/)!
+Vyzkoušejte [APP](https://ballaylukas.github.io/App-Bankist/)!
 
 ### Login údaje účtů
 
