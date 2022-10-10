@@ -2,7 +2,7 @@
 
 Vypracováno v rámci kurzu Udemy [JavaScript 2022](https://www.udemy.com/share/101Wfe3@UU_sO7bHCOB5DskVqswTPSr2eV0ovdIGr6rsuhWSq1gkCF8cadYTIoAo8LLt7UczCw==/).
 
-Minimalistická webová aplikace online bankovnictví "Bankist", vybudovaná na základech práce s datovými strukturami (arrays, objects), DOM manipulací a eventy.
+Minimalistická webová aplikace online bankovnictví "Bankist", vybudovaná na základech práce s datovými strukturami (arrays, objects), DOM manipulací, eventy, matematickými funkcemi, časem a datem.
 
 Vyzkoušejte [APP](https://ballaylukas.github.io/App-Bankist/)!
 
