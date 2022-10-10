@@ -12,8 +12,6 @@ Vyzkoušejte [APP](https://ballaylukas.github.io/App-Bankist/)!
 | ----------- | ----------- |
 | js | 1111 |
 | jd | 2222 |
-| stw | 3333 |
-| ss | 4444 |
 
 ### Funkce aplikace
 * přihlášení do aplikace (4 vytvořené účty)
