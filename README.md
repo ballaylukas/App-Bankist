@@ -19,9 +19,9 @@ Vyzkoušejte [APP](https://ballaylukas.github.io/App-Bankist/)!
 * zobrazení pohybů na účtu
 * třídění pohybů na účtu
 * celkový stav, přehled výdajů a příjmů
-* převod peněz mezi účty (Transfer to => Username druhého účtu)
+* převod peněz mezi účty (Transfer to = Username druhého účtu)
 * žádost o půjčku na základě definované podmínky
-* zrušení účtu (Confirm user => Username účtu)
+* zrušení účtu (Confirm user = Username účtu)
 * aktuální datum a čas
 * zaznamenání data jednotlivých pohybů na účtu
 
