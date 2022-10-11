@@ -22,8 +22,8 @@ Vyzkoušejte [APP](https://ballaylukas.github.io/App-Bankist/)!
 * převod peněz mezi účty (Transfer to = Username druhého účtu)
 * žádost o půjčku na základě definované podmínky
 * zrušení účtu (Confirm user = Username účtu)
-* aktuální datum a čas
-* zaznamenání data jednotlivých pohybů na účtu
+* aktuální datum a čas, datum pohybů na účtu
+* formátování data, času, pohybů na účtu za pomoci Internationalization API
 
 ### Bude doplněno
 * časový interval automatického odhlášení
