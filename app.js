@@ -291,7 +291,7 @@ btnSort.addEventListener("click", function (e) {
   e.preventDefault();
 
   // Sort movements
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
 
   // Flip variable back
   sorted = !sorted;
