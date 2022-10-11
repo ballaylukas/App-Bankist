@@ -227,9 +227,9 @@ const updateUI = function (account) {
 let currentAccount;
 
 // ---Fake Always Logged In---
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 1;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 1;
 
 // ---Login---
 btnLogin.addEventListener("click", function (e) {
