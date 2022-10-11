@@ -14,16 +14,16 @@ Vyzkoušejte [APP](https://ballaylukas.github.io/App-Bankist/)!
 | jd | 2222 |
 
 ### Funkce aplikace
-* přihlášení do aplikace (4 vytvořené účty)
+* přihlášení do aplikace (2 vytvořené účty)
 * generování přihlašovacího jména na základě iniciál
 * zobrazení pohybů na účtu
 * třídění pohybů na účtu
 * celkový stav, přehled výdajů a příjmů
-* převod peněz mezi účty
+* převod peněz mezi účty (Transfer to => Username druhého účtu)
 * žádost o půjčku na základě definované podmínky
-* zrušení účtu
-
-### Bude doplněno
+* zrušení účtu (Confirm user => Username účtu)
 * aktuální datum a čas
 * zaznamenání data jednotlivých pohybů na účtu
+
+### Bude doplněno
 * časový interval automatického odhlášení
