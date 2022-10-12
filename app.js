@@ -70,23 +70,7 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
-//////////// FUNCTIONS ////////////
-// SORT MOVEMENTS WITH DATES
-const sortMovements = function (account) {
-  const sortedMovs = [];
-  const sortedDates = [];
-
-  account.movements
-    .map((mov, i) => [mov, account.movementsDates[i]])
-    .sort((a, b) => a[0] - b[0])
-    .forEach(el => {
-      sortedMovs.push(el[0]);
-      sortedDates.push(el[1]);
-    });
-
-  return [sortedMovs, sortedDates];
-};
-
+//////////// REUSABLE FUNCTIONS ////////////
 // FORMAT MOVEMENTS DATES
 const formatMovementDate = function (date, locale) {
   // Calculating passed days
@@ -118,6 +102,69 @@ const formatCur = function (value, locale, currency) {
   }).format(value);
 };
 
+// LOGOUT TIMER
+const startLogOutTimer = function () {
+  // Set time to 5 minutes
+  let time = 300;
+
+  // Function
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+
+    // In each call, print the remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // When 0 seconds, stop timer and log out user
+    if (time === 0) {
+      // Stop timer
+      clearInterval(timer);
+      // Hide UI
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+
+    // Decrese 1s
+    time--;
+  };
+
+  // Call the timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+
+  // Return timer for clear it in next Login
+  return timer;
+};
+
+// UPDATE UI
+const updateUI = function (account) {
+  // Display movement
+  displayMovements(account);
+
+  // Display balance
+  calcDisplayBalance(account);
+
+  // Display summary
+  calcDisplaySummary(account);
+};
+
+//////////// FUNCTIONS ////////////
+// SORT MOVEMENTS WITH DATES
+const sortMovements = function (account) {
+  const sortedMovs = [];
+  const sortedDates = [];
+
+  account.movements
+    .map((mov, i) => [mov, account.movementsDates[i]])
+    .sort((a, b) => a[0] - b[0])
+    .forEach(el => {
+      sortedMovs.push(el[0]);
+      sortedDates.push(el[1]);
+    });
+
+  return [sortedMovs, sortedDates];
+};
+
 // DISPLAY MOVEMENTS
 const displayMovements = function (account, sort = false) {
   // Clear movements
@@ -129,13 +176,14 @@ const displayMovements = function (account, sort = false) {
     : [account.movements, account.movementsDates];
 
   movs.forEach(function (mov, i) {
+    // Movement type
     const type = mov > 0 ? "deposit" : "withdrawal";
 
     // Display date
     const date = new Date(dates[i]);
     const displayDate = formatMovementDate(date, account.locale);
 
-    // Format movements
+    // Format value of movement
     const formattedMov = formatCur(mov, account.locale, account.currency);
 
     // HTML
@@ -210,55 +258,11 @@ const createUsernames = function (accounts) {
 };
 createUsernames(accounts);
 
-// UPDATE UI
-const updateUI = function (account) {
-  // Display movement
-  displayMovements(account);
-
-  // Display balance
-  calcDisplayBalance(account);
-
-  // Display summary
-  calcDisplaySummary(account);
-};
-
-// LOGOUT TIMER
-const startLogOutTimer = function () {
-  // Set time to 5 minutes
-  let time = 300;
-
-  // Function
-  const tick = function () {
-    const min = String(Math.trunc(time / 60)).padStart(2, 0);
-    const sec = String(time % 60).padStart(2, 0);
-    // In each call, print the remaining time to UI
-    labelTimer.textContent = `${min}:${sec}`;
-
-    // When 0 seconds, stop timer and log out user
-    if (time === 0) {
-      // Stop timer
-      clearInterval(timer);
-      // Hide UI
-      labelWelcome.textContent = `Log in to get started`;
-      containerApp.style.opacity = 0;
-    }
-
-    // Decrese 1s
-    time--;
-  };
-
-  // Call the timer every second
-  tick();
-  const timer = setInterval(tick, 1000);
-
-  // Return timer for clear it in next Login
-  return timer;
-};
-
 //////////// EVENT HANDLERS ////////////
 // GLOBAL VARIABLES
-let currentAccount, timer;
-let sorted = false;
+let currentAccount,
+  timer,
+  sorted = false;
 
 // TEST CODE = FAKE ALWAYS LOGGED IN
 // currentAccount = account1;
@@ -309,9 +313,8 @@ btnLogin.addEventListener("click", function (e) {
       options
     ).format(now);
 
-    // Clear input fields
-    inputLoginUsername.value = inputLoginPin.value = "";
-    inputLoginPin.blur();
+    // Update UI
+    updateUI(currentAccount);
 
     // Logout Timer
     // Clear previous timer
@@ -319,10 +322,11 @@ btnLogin.addEventListener("click", function (e) {
     timer &&= clearInterval(timer);
     // New timer
     timer = startLogOutTimer();
-
-    // Update UI
-    updateUI(currentAccount);
   }
+
+  // Clear input fields
+  inputLoginUsername.value = inputLoginPin.value = "";
+  inputLoginPin.blur();
 });
 
 // TRANSFER MONEY
