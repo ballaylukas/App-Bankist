@@ -1,6 +1,6 @@
 "use strict";
 
-// DATA
+//////////// INPUT DATA ////////////
 const account1 = {
   owner: "Jonas Schmedtmann",
   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
@@ -43,8 +43,8 @@ const account2 = {
 
 const accounts = [account1, account2];
 
-// ELEMENTS
-// ---Label---
+//////////// ELEMENTS ////////////
+// LABEL
 const labelWelcome = document.querySelector(".welcome");
 const labelDate = document.querySelector(".date");
 const labelBalance = document.querySelector(".balance__value");
@@ -52,16 +52,16 @@ const labelSumIn = document.querySelector(".summary__value--in");
 const labelSumOut = document.querySelector(".summary__value--out");
 const labelSumInterest = document.querySelector(".summary__value--interest");
 const labelTimer = document.querySelector(".timer");
-// ---Container---
+// CONTAINER
 const containerApp = document.querySelector(".app");
 const containerMovements = document.querySelector(".movements");
-// ---Button---
+// BUTTON
 const btnLogin = document.querySelector(".login__btn");
 const btnTransfer = document.querySelector(".form__btn--transfer");
 const btnLoan = document.querySelector(".form__btn--loan");
 const btnClose = document.querySelector(".form__btn--close");
 const btnSort = document.querySelector(".btn--sort");
-// ---Input---
+// INPUT
 const inputLoginUsername = document.querySelector(".login__input--user");
 const inputLoginPin = document.querySelector(".login__input--pin");
 const inputTransferTo = document.querySelector(".form__input--to");
@@ -70,8 +70,8 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
-// FUNCTIONS
-// ---Sorting Movements + Dates---
+//////////// FUNCTIONS ////////////
+// SORT MOVEMENTS WITH DATES
 const sortMovements = function (account) {
   const sortedMovs = [];
   const sortedDates = [];
@@ -87,7 +87,7 @@ const sortMovements = function (account) {
   return [sortedMovs, sortedDates];
 };
 
-// ---Formating Movements Dates---
+// FORMAT MOVEMENTS DATES
 const formatMovementDate = function (date, locale) {
   // Calculating passed days
   const calcDaysPassed = (date1, date2) =>
@@ -110,7 +110,7 @@ const formatMovementDate = function (date, locale) {
   }
 };
 
-// ---Formating The Currencies---
+// FORMAT CURRENCIES
 const formatCur = function (value, locale, currency) {
   return new Intl.NumberFormat(locale, {
     style: "currency",
@@ -118,12 +118,12 @@ const formatCur = function (value, locale, currency) {
   }).format(value);
 };
 
-// ---Display Movements---
+// DISPLAY MOVEMENTS
 const displayMovements = function (account, sort = false) {
   // Clear movements
   containerMovements.innerHTML = "";
 
-  // Sorting movements + dates
+  // Sort movements with dates
   const [movs, dates] = sort
     ? sortMovements(account)
     : [account.movements, account.movementsDates];
@@ -135,7 +135,7 @@ const displayMovements = function (account, sort = false) {
     const date = new Date(dates[i]);
     const displayDate = formatMovementDate(date, account.locale);
 
-    // Formating movements
+    // Format movements
     const formattedMov = formatCur(mov, account.locale, account.currency);
 
     // HTML
@@ -152,11 +152,11 @@ const displayMovements = function (account, sort = false) {
   });
 };
 
-// ---Calculate Balance---
+// CALCULATE BALANCE
 const calcDisplayBalance = function (account) {
   account.balance = account.movements.reduce((acc, mov) => acc + mov, 0);
 
-  // Formating balance
+  // Format balance
   labelBalance.textContent = formatCur(
     account.balance,
     account.locale,
@@ -164,7 +164,7 @@ const calcDisplayBalance = function (account) {
   );
 };
 
-// ---Calculate Summary---
+// CALCULATE SUMMARY
 const calcDisplaySummary = function (account) {
   // Incomes
   const incomes = account.movements
@@ -198,7 +198,7 @@ const calcDisplaySummary = function (account) {
   );
 };
 
-// ---Create Usernames---
+// CREATE USERNAMES
 const createUsernames = function (accounts) {
   accounts.forEach(function (account) {
     account.username = account.owner
@@ -210,7 +210,7 @@ const createUsernames = function (accounts) {
 };
 createUsernames(accounts);
 
-// ---Update UI---
+// UPDATE UI
 const updateUI = function (account) {
   // Display movement
   displayMovements(account);
@@ -222,16 +222,50 @@ const updateUI = function (account) {
   calcDisplaySummary(account);
 };
 
-// EVENT HANDLERS
-// Global variable
-let currentAccount;
+// LOGOUT TIMER
+const startLogOutTimer = function () {
+  // Set time to 5 minutes
+  let time = 300;
 
-// ---Fake Always Logged In---
+  // Function
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+    // In each call, print the remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // When 0 seconds, stop timer and log out user
+    if (time === 0) {
+      // Stop timer
+      clearInterval(timer);
+      // Hide UI
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+
+    // Decrese 1s
+    time--;
+  };
+
+  // Call the timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+
+  // Return timer for clear it in next Login
+  return timer;
+};
+
+//////////// EVENT HANDLERS ////////////
+// GLOBAL VARIABLES
+let currentAccount, timer;
+let sorted = false;
+
+// TEST CODE = FAKE ALWAYS LOGGED IN
 // currentAccount = account1;
 // updateUI(currentAccount);
 // containerApp.style.opacity = 1;
 
-// ---Login---
+// LOGIN
 btnLogin.addEventListener("click", function (e) {
   // Prevent form from submitting
   e.preventDefault();
@@ -279,12 +313,19 @@ btnLogin.addEventListener("click", function (e) {
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur();
 
+    // Logout Timer
+    // Clear previous timer
+    // if (timer) clearInterval(timer);
+    timer &&= clearInterval(timer);
+    // New timer
+    timer = startLogOutTimer();
+
     // Update UI
     updateUI(currentAccount);
   }
 });
 
-// ---Transfer Money---
+// TRANSFER MONEY
 btnTransfer.addEventListener("click", function (e) {
   // Prevent form from submitting
   e.preventDefault();
@@ -310,13 +351,19 @@ btnTransfer.addEventListener("click", function (e) {
 
     // Update UI
     updateUI(currentAccount);
+
+    // Reset timer
+    // Clear previous timer
+    clearInterval(timer);
+    // New timer
+    timer = startLogOutTimer();
   }
 
   // Clear input fields
   inputTransferAmount.value = inputTransferTo.value = "";
 });
 
-// ---Request Loan---
+// REQUEST LOAN
 btnLoan.addEventListener("click", function (e) {
   // Prevent form from submitting
   e.preventDefault();
@@ -324,21 +371,29 @@ btnLoan.addEventListener("click", function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov > amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-    // Add loan date
-    currentAccount.movementsDates.push(new Date().toISOString());
+      // Add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+
+      // Reset timer
+      // Clear previous timer
+      clearInterval(timer);
+      // New timer
+      timer = startLogOutTimer();
+    }, 2500);
   }
 
   // Clear input field
   inputLoanAmount.value = "";
 });
 
-// ---Close Account---
+// CLOSE ACCOUNT
 btnClose.addEventListener("click", function (e) {
   // Prevent form from submitting
   e.preventDefault();
@@ -352,7 +407,7 @@ btnClose.addEventListener("click", function (e) {
     );
     console.log(index);
 
-    // Delete account
+    // Close account
     accounts.splice(index, 1);
 
     // Hide UI
@@ -364,10 +419,7 @@ btnClose.addEventListener("click", function (e) {
   inputCloseUsername.value = inputClosePin.value = "";
 });
 
-// ---Sort Movements---
-// Global variable
-let sorted = false;
-
+// SORT MOVEMENTS
 btnSort.addEventListener("click", function (e) {
   // Prevent form from submitting
   e.preventDefault();
